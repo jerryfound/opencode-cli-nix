@@ -1,0 +1,11 @@
+#!/bin/sh
+# Scan staged changes for secrets before they land in a commit.
+# Activate with: git config core.hooksPath .githooks
+# Requires gitleaks (e.g. nix profile add nixpkgs#gitleaks).
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "gitleaks not found; skipping secret scan" >&2
+  exit 0
+fi
+
+exec gitleaks git --pre-commit --staged --redact
