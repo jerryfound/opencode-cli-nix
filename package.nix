@@ -81,17 +81,21 @@ stdenv.mkDerivation {
         ++ lib.optional (stdenv.hostPlatform.isDarwin && sysctl != null) sysctl
       )} \
       --set OPENCODE_DISABLE_AUTOUPDATE true
-  ''
-  # Generate shell completions when the build machine can run the binary.
-  + lib.optionalString canRunHere ''
-    installShellCompletion --cmd opencode \
-      --bash <($out/bin/opencode completion) \
-      --zsh <(SHELL=/bin/zsh $out/bin/opencode completion)
   '';
 
   # Install-time smoke test: the built binary must run and report our exact
   # version. Hand-rolled instead of versionCheckHook so that old nixpkgs
   # (verified back to nixos-22.05) keeps working.
+  #
+  # Shell completions are generated here too, NOT in postInstall or the
+  # postFixup attribute: on Linux the binary only becomes runnable once
+  # autoPatchelfHook has rewritten its dynamic linker, and autoPatchelf runs
+  # from postFixupHooks — which stdenv executes AFTER the postFixup attribute
+  # (runHook runs the attribute first, then the hooks array). Before that,
+  # execve fails with ENOENT (/lib64/ld-linux absent in the sandbox) and the
+  # completion files come out empty. installCheckPhase runs after fixupPhase,
+  # so the binary is fully patched by then. darwin needs no patching, so this
+  # is only an ordering change there.
   doInstallCheck = canRunHere;
   installCheckPhase = ''
     runHook preInstallCheck
@@ -102,6 +106,16 @@ stdenv.mkDerivation {
       echo "version check failed: expected $version" >&2
       exit 1
     }
+
+    # Run from a scratch dir: opencode is project-aware and may misbehave
+    # when cwd is the unpacked npm source tree.
+    cd "$HOME"
+    $out/bin/opencode completion > opencode.bash
+    SHELL=/bin/zsh $out/bin/opencode completion > opencode.zsh
+    installShellCompletion --cmd opencode \
+      --bash opencode.bash \
+      --zsh opencode.zsh
+
     runHook postInstallCheck
   '';
 
