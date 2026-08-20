@@ -1,0 +1,49 @@
+name: Update opencode
+
+on:
+  schedule:
+    # Check four times a day, deliberately off the top of the hour.
+    # A no-op run makes no commits; upstream releases land every few days.
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Refresh hashes.json from the npm registry
+        run: python3 scripts/update.py
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet hashes.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Nix
+        if: steps.diff.outputs.changed == 'true'
+        uses: cachix/install-nix-action@v31
+
+      - name: Smoke-build opencode (x86_64-linux)
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          nix build .#opencode --extra-experimental-features 'nix-command flakes'
+          ./result/bin/opencode --version
+
+      - name: Commit and push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          version=$(python3 -c "import json; print(json.load(open('hashes.json'))['version'])")
+          git add hashes.json
+          git commit -m "chore: bump opencode to v${version}"
+          git push
