@@ -61,7 +61,7 @@ everywhere it is referenced - system configuration, Home Manager, dev shells:
 # flake.nix
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     opencode-cli-nix.url = "github:jerryfound/opencode-cli-nix";
   };
 
