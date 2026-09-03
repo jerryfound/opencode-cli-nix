@@ -1,21 +1,21 @@
 {
   "platforms": {
     "darwin-arm64": {
-      "hash": "sha512-EatFg4sOw6z3sGFb7Fh+uR5XKIrjRH9js0uWwsjNmK2CmfhBw8bowPGnwMG8/VeHw5Jhs1OtYLDl7HArXCLgyQ==",
-      "url": "https://registry.npmjs.org/opencode-darwin-arm64/-/opencode-darwin-arm64-1.18.26.tgz"
+      "hash": "sha512-Vkxv2Q0Ne5fKpB/6kyv3fgVuS4PObVlWWYpyC+O39iaSQSFmYoKn2CmXRid0RVXIku6z4GSgv2TpINJXlGGMNA==",
+      "url": "https://registry.npmjs.org/opencode-darwin-arm64/-/opencode-darwin-arm64-1.18.27.tgz"
     },
     "darwin-x64": {
-      "hash": "sha512-RQriCOh11HcGqo185Qje3AWEhOt9q6d4OpHPmHyafPn8Tp1gzQuEdjQC6jYLwxl6gaJ0svpnjY/kDMTWUlkkDA==",
-      "url": "https://registry.npmjs.org/opencode-darwin-x64/-/opencode-darwin-x64-1.18.26.tgz"
+      "hash": "sha512-ypweBfeKS8E+fEG3F1SKrctxK2ecmwOwdGaPTbyVXj6hnI3FUvVscfMHS1xDLts/qGbhNQ0yCcfgs6iEgd/zKw==",
+      "url": "https://registry.npmjs.org/opencode-darwin-x64/-/opencode-darwin-x64-1.18.27.tgz"
     },
     "linux-arm64": {
-      "hash": "sha512-iOHzx0pvQoxb8120ck7f0M50AL3T9EAcS7r3qmLfhnXlNQ0E7Vq1f2HvnJ4lkBdbqzywgoV9gM6oJFYIaFERaQ==",
-      "url": "https://registry.npmjs.org/opencode-linux-arm64/-/opencode-linux-arm64-1.18.26.tgz"
+      "hash": "sha512-6PPJ+m5kuzA7uUS+Kem6+h2Nn0Dl2siz7B36h/9Y21ga3WNN6a0klo2Obu+Vbq63i8Th2XRFflvsi/r5u76PcA==",
+      "url": "https://registry.npmjs.org/opencode-linux-arm64/-/opencode-linux-arm64-1.18.27.tgz"
     },
     "linux-x64": {
-      "hash": "sha512-21Dr0bTDT4cq+o3Xq5m/8dTQTtNv4Mfu4Y1PRgxCb3d+KJVlgQhlPOeoN5/9IEZlVq3kXYzOin59+0k38jsI6A==",
-      "url": "https://registry.npmjs.org/opencode-linux-x64/-/opencode-linux-x64-1.18.26.tgz"
+      "hash": "sha512-hxoPQCv6z/iYh3f8ZlAhJQ0RgzfJZQNOM1ZLRkx7juiZBmtLQLgFtDRiFNhqOKlKgDWsg131fOEEWwsT778aWA==",
+      "url": "https://registry.npmjs.org/opencode-linux-x64/-/opencode-linux-x64-1.18.27.tgz"
     }
   },
-  "version": "1.18.26"
+  "version": "1.18.27"
 }
